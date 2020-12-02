@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 int N_Control();
 int numControl(int N);
@@ -44,5 +45,6 @@ int numControl(int N) {
         sum += 1;
         }
     }
-    printf("La cantidad de series de numeros primos es %i.\n", sum);
+    return num;
+    printf("La cantidad de series de Nros primos es: %i.\n", sum);
 }
