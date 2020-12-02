@@ -25,7 +25,7 @@ void binControl(int num) {
 
         if((val != 1) && (val != 0)) {
             count++;
-            break;
+            
         }
         
         num /= 10;

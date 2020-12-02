@@ -1,54 +1,40 @@
 #include <stdio.h>
-#include <math.h>
-
-int N_Control();
-int primeControl(int N);
+ 
+int numControl();
+void es_perfecto(int num);
 int main() {
-    int N = N_Control();
-    primeControl(N);
+    int num = numControl();
+    es_perfecto(num);
     return 0;
 }
 
-int N_Control() {
-    int N;
+int numControl() {
+    int num;
     do {
-        printf("Ingrese el valor de N: ");
-        scanf("%i", &N);
-        if (N <= 0) {
-            printf("Porfavor, la cantidad debe ser positiva...\n");
+        printf("Ingrese un numero: ");
+        scanf("%d", &num);
+        if (num <= 0) {
+            printf("Porfavor, el numero debe ser un entero positivo...\n");
         }
-    } while (N <= 0);
-    return N;
+    } while (num <= 0);
+    return num;
 }
 
-int primeControl(int N) {
+void es_perfecto(int num) {
+    
+    int aux, sum = 0, i;
 
-    int m = 0, aux = 0, num, count = 0, sum = 0, flag;
-
-    printf("Ingrese %i numeros: \n", N);
-    for (int i = 0; i < N; i++) {
-        scanf("%i", &num);
-        m = num/2;
+    for (i = 1; i <= (num - 1); i++) {
         
-        for(int i = 2; i <= m; i++) {
-            
-            if(num % i == 0) {
-                flag = 0;
-                count = 0;
-                aux = 1;
-                break;
-            }
-        }
-        
-        if(aux == 0) {
-            flag = 1;
-            count += 1;
-        }
-
-        if (count >= 2 && flag == 1) {
-        sum += 1;
+        aux = num % i;
+        if (aux == 0) {
+            sum = sum + i;
         }
     }
 
-    printf("La cantidad de series de primos es: %i\n", sum);
+    if (sum == num) {
+        printf("El numero %i es perfecto.\n", num);
+    } else {
+        printf("El numero %i no es perfecto.\n", num);
+    }
 }
