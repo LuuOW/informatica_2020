@@ -15,6 +15,7 @@ Entonces 6+120 = 126
 
 int ingresarEntero();
 int controlarNumeros(int N1, int N2);
+int factorial(int N1);
 int sumarFactorial(int N1, int N2);
 /* === Funcion Principal ================================================================ */
 int main(int argc, char *argv[]){
@@ -75,6 +76,7 @@ la cual almacena y suma todos los factoriales de los "i" impares.
 */
 
 int sumarFactorial(int N1, int N2) {
+    
     int sum = 0, i;
     for (i = N1 + 1; i < N2; i++) {
 
@@ -94,6 +96,16 @@ int sumarFactorial(int N1, int N2) {
 
     return sum;
 }
+
+
+/*
+NOTA.... al usar el ciclo for en la funcion sumarFactorial, para hacer una función factorial la 
+función sumarFactorial tendria que retornar 2 valores los cuales son i, ya que i es la variable
+sobre la cual estoy iterando que representan los numeros entre N1 y N2, y el valor suma para evitar modificar el programa principal 
+no use una función factorial ya que podia calcular
+el factorial dentro del ciclo for.
+*/
+
 
 /*
 Creado por: Kempe Lucas Alejandro

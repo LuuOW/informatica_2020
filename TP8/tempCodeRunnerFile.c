@@ -1,85 +1,110 @@
-/*
-Ingresar un número entero positivo, luego mostrar un mensaje indicando si el mismo
-es o no perfecto.
+/* Catedra de Informatica Y Programacion 1
+Año: 2020 
+Tema: 2do Parcial
+Ejercicio: Ingresar dos números enteros positivos N1 y N2, en donde N1 tiene que ser menor que N2.
+Sumar los factoriales de los numeros impares mayores que N1 y menores que N2,
+luego mostrar por pantalla el resultado de la suma.
+Por ej: se ingresan N1=1 y N2=6. Los numeros impares entre N1 Y N2 son 3 y 5. 3!=6 Y 5!=120
+Entonces 6+120 = 126    
 */
-/* === Inclusiones de cabeceras ================================================================ */
 
+/* === Inclusiones de cabeceras ================================================================ */
 #include <stdio.h>
- 
+
 /* === Declaracion de Funciones ================================================================ */
 
-int ingresarPositivo();
-int esPerfecto(int numero);
-
+int ingresarEntero();
+int controlarNumeros(int N1, int N2);
+int factorial(int N1);
+int sumarFactorial(int N1, int N2);
 /* === Funcion Principal ================================================================ */
+int main(int argc, char *argv[]){
 
-/*
-Ejecuta las funciones previamente declaras y si la respuesta es igual 1, muestra el mensaje
-de que el numero es perfecto, sino muestra el mensaje de que no lo es.
-*/
-int main() {
-    int numero = ingresarPositivo();
-    int respuesta = esPerfecto(numero);
-    if (respuesta == 1) {
-        printf("El numero es perfecto.\n");
-    } else {
-        printf("El numero no es perfecto.\n");
-    }
+    int N1, N2, bandera, suma;
+
+    do{
+        printf("Ingrese el menor numero: ");
+        N1 = ingresarEntero();
+        printf("Ingrese el mayor numero: ");
+        N2 = ingresarEntero();
+        bandera = controlarNumeros(N1, N2);
+    }while(bandera == 0);
+
+    suma = sumarFactorial(N1 ,N2);
+    printf("El resultado de la suma de los factoriales de los numeros impares es %i\n", suma);
     return 0;
 }
 
-
 /* === Definicion de Funciones ================================================================ */
 
-
 /*
-Esta función pide al usuario que ingrese un numero y almacena el valor en la variable numero,
-si el valor del numero es menor o igual que 0, advierte al usuario que el numero debe
-ser mayor que 0, por la definición de numero perfecto y vuelve a pedirle el numero
-al final retorna el numero.
+Pide ingresar un numero entero y lo almacena en la variable num. 
 */
-int ingresarPositivo() {
-    int numero;
-    do {
-        printf("Ingrese un numero: ");
-        scanf("%d", &numero);
-        if (numero <= 0) {
-            printf("Porfavor, el numero debe ser un entero positivo...\n");
-        }
-    } while (numero <= 0);
-    return numero;
+int ingresarEntero() {
+    int num;
+    scanf("%i", &num);
+    return num;
 }
 
 /*
-Esta función controla si el numero es perfecto, es decir si es igual a la suma
-de sus divisores, para controlar esto se usa la variable "divisor", en un ciclo for
-el cual va iterando a traves de "divisor", se usa una variable auxiliar llamada "valor"
-para almacenar el valor del modulo de dividir el numero ingresado en el divisor, de esta forma
-se comprueban los divisores del numero, si es divisor, entonces se va sumando el divisor a la variable
-suma que inicialmente es 0, al final se comprueba si la variable suma es igual al numero, 
-es decir una vez mas, si la suma de los divisores del numero es igual al numero mismo,
-si esto es real, retorna una respuesta.
+Controla que los numeros ingresados N1, y N2 sean mayores que 0
+y ademas controla que N2 no sea menor que N1, si cualquiera de estas condiciones
+es real, entonces, la variable auxiliar bandera tiene valor 0 y muestra un mensaje 
+para advertir que deben ser modificados los valores ingresados
+a fin de que el usuario sepa cual puede ser el problema, si todas las condiciones son falsas,
+solo entonces el valor de la bandera cambia a 1, y se deja de pedir al usuario que ingrese los numeros 
+al retornarse la bandera a la función principal y cambiar el valor.
 */
 
-int esPerfecto(int numero) {
-
-    int valor, suma = 0, divisor, respuesta;
-
-    for (divisor = 1; divisor < numero; divisor++) {
-        
-        valor = numero % divisor;
-        if (valor == 0) {
-            suma += divisor;
-        }
-    }
-
-    if (suma == numero) {
-        respuesta = 1;
+int controlarNumeros(int N1, int N2) {
+    int bandera;
+    if (N1 >= N2 || N1 <= 0 || N2 <= 0) {
+        bandera = 0;
+        printf("Porfavor, ambos numeros deben ser positivos, y el primero debe ser menor que el segundo...\n");
     } else {
-        respuesta = 0;
+        bandera = 1;
     }
-    return respuesta;
+    return bandera;
 }
+
+/*
+La variable count es un contador para ir avanzando el factorial, el cual
+se almacena dentro de la variable fact, "i" es una variable que avanza
+entre N1 y N2 y se calcula su factorial, si y solo si "i" es impar.
+al final luego de calcular el factorial de "i", se almacena en el resultado en la variable sum
+la cual almacena y suma todos los factoriales de los "i" impares. 
+*/
+
+int sumarFactorial(int N1, int N2) {
+    
+    int sum = 0, i;
+    for (i = N1 + 1; i < N2; i++) {
+
+        if (i % 2 != 0) {
+            
+            int contador = 1;
+            int factorial = 1;
+            
+            while (contador <= i) {
+                
+                factorial *= contador;
+                contador += 1;
+            }
+            sum += factorial;
+        }
+    }
+
+    return sum;
+}
+
+
+/*
+NOTA.... al usar el ciclo for en la funcion sumarFactorial, para hacer una función factorial la 
+función sumarFactorial tendria que retornar 2 valores los cuales son i, ya que i es la variable
+sobre la cual estoy iterando que representan los numeros entre N1 y N2, y el valor suma para evitar modificar el programa principal 
+no use una función factorial ya que podia calcular
+el factorial dentro del ciclo for.
+*/
 
 
 /*
